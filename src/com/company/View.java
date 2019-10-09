@@ -61,10 +61,18 @@ public class View {
         int i = 1;
         for (AdminMenuItem adminMenuItem :
                 AdminMenuItem.values()) {
-            System.out.printf("%d. %s", i, adminMenuItem.menuOutput);
+            System.out.printf("%d. %s\n", i, adminMenuItem.menuOutput);
             i++;
         }
     }
+    public AdminMenuItem getAdminMenuItem() {
+        String adminMenuChoice;
+        do {
+            adminMenuChoice = input.nextLine();
+        } while (!FormatCheckers.mainMenuChoiceIsValid(adminMenuChoice, AdminMenuItem.values().length));
+        return AdminMenuItem.values()[Integer.parseInt(adminMenuChoice) - 1];
+    }
+
 
     public void showErrorMessage(String errorMessage) {
         String output = String.format("Error: %s. Try again.\n", errorMessage);

@@ -34,12 +34,15 @@ public class HotelReceptionProgram {
                                     employeeTypeMenuItem = view.getEmployeeTypeMenuItem();
                                     switch (employeeTypeMenuItem) {
                                         case CLEANER: {
+                                            //TODO: implement
                                             break;
                                         }
                                         case MANAGER: {
+                                            //TODO: implement
                                             break;
                                         }
                                         case RECEPTIONIST: {
+                                            //TODO: implement
                                             break;
                                         }
                                         case BACK: {
@@ -53,9 +56,11 @@ public class HotelReceptionProgram {
                                 break;
                             }
                             case DISMISS: {
+                                //TODO: implement getEmployeeID
                                 break;
                             }
                             case SHOW: {
+                                //TODO: implement
                                 break;
                             }
                             case BACK: {

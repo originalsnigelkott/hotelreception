@@ -41,6 +41,10 @@ public class View {
         }
     }
 
+    public enum ShowEmployeeTypeMenuItem {
+        //TODO: implement
+        }
+
     private static View instance = null;
     private Scanner input = new Scanner(System.in);
 

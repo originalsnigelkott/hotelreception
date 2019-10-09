@@ -21,7 +21,7 @@ public class FormatCheckers {
         return false;
     }
 
-    public static boolean mainMenuChoiceIsValid(String menuChoice, int noOfChoices) {
+    public static boolean menuChoiceIsValid(String menuChoice, int noOfChoices) {
         if (stringIsIntegers(menuChoice)) {
             if (Integer.parseInt(menuChoice) <= noOfChoices && Integer.parseInt(menuChoice) > 0) {
                 return true;

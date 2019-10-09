@@ -27,6 +27,20 @@ public class View {
             this.menuOutput = menuOutput;
         }
     }
+
+    public enum EmployeeTypeMenuItem {
+        CLEANER("Cleaner"),
+        MANAGER("Manager"),
+        RECEPTIONIST("Receptionist"),
+        BACK ("Back");
+
+        private String menuOutput;
+
+        private EmployeeTypeMenuItem(String menuOutput) {
+            this.menuOutput = menuOutput;
+        }
+    }
+
     private static View instance = null;
     private Scanner input = new Scanner(System.in);
 
@@ -54,7 +68,7 @@ public class View {
         String mainMenuChoice;
         do {
             mainMenuChoice = input.nextLine();
-        } while (!FormatCheckers.mainMenuChoiceIsValid(mainMenuChoice, MainMenuItem.values().length));
+        } while (!FormatCheckers.menuChoiceIsValid(mainMenuChoice, MainMenuItem.values().length));
         return MainMenuItem.values()[Integer.parseInt(mainMenuChoice) - 1];
     }
     public void showAdminMenu() {
@@ -69,8 +83,23 @@ public class View {
         String adminMenuChoice;
         do {
             adminMenuChoice = input.nextLine();
-        } while (!FormatCheckers.mainMenuChoiceIsValid(adminMenuChoice, AdminMenuItem.values().length));
+        } while (!FormatCheckers.menuChoiceIsValid(adminMenuChoice, AdminMenuItem.values().length));
         return AdminMenuItem.values()[Integer.parseInt(adminMenuChoice) - 1];
+    }
+    public void showEmployeeTypeMenu() {
+        int i = 1;
+        for (EmployeeTypeMenuItem employeeTypeMenu :
+                EmployeeTypeMenuItem.values()) {
+            System.out.printf("%d. %s\n", i, employeeTypeMenu.menuOutput);
+            i++;
+        }
+    }
+    public EmployeeTypeMenuItem getEmployeeTypeMenuItem() {
+        String employeeTypeMenuChoice;
+        do {
+            employeeTypeMenuChoice = input.nextLine();
+        } while (!FormatCheckers.menuChoiceIsValid(employeeTypeMenuChoice, EmployeeTypeMenuItem.values().length));
+        return EmployeeTypeMenuItem.values()[Integer.parseInt(employeeTypeMenuChoice) - 1];
     }
 
 

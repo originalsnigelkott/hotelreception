@@ -25,7 +25,46 @@ public class HotelReceptionProgram {
                     View.AdminMenuItem adminMenuChoice;
                     do {
                         view.showAdminMenu();
-                        adminMenuChoice = null;
+                        adminMenuChoice = view.getAdminMenuItem();
+                        switch (adminMenuChoice) {
+                            case HIRE: {
+                                View.EmployeeTypeMenuItem employeeTypeMenuItem;
+                                do {
+                                    view.showEmployeeTypeMenu();
+                                    employeeTypeMenuItem = view.getEmployeeTypeMenuItem();
+                                    switch (employeeTypeMenuItem) {
+                                        case CLEANER: {
+                                            break;
+                                        }
+                                        case MANAGER: {
+                                            break;
+                                        }
+                                        case RECEPTIONIST: {
+                                            break;
+                                        }
+                                        case BACK: {
+                                            break;
+                                        }
+                                        default: {
+                                            view.showErrorMessage("Invalid choice");
+                                        }
+                                    }
+                                } while (employeeTypeMenuItem != View.EmployeeTypeMenuItem.BACK);
+                                break;
+                            }
+                            case DISMISS: {
+                                break;
+                            }
+                            case SHOW: {
+                                break;
+                            }
+                            case BACK: {
+                                break;
+                            }
+                            default: {
+                                view.showErrorMessage("Invalid choice");
+                            }
+                        }
                     } while (adminMenuChoice != View.AdminMenuItem.BACK);
                     break;
                 }

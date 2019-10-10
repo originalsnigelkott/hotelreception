@@ -116,7 +116,7 @@ public class View {
         return EmployeeTypeMenuItem.values()[Integer.parseInt(employeeTypeMenuChoice) - 1];
     }
     public String getName(String type) {
-        System.out.printf("Enter %s name:", type);
+        System.out.printf("Enter %s name:\n", type);
         String nameInput;
         do {
             nameInput = input.nextLine();
@@ -124,7 +124,12 @@ public class View {
         return nameInput;
     }
     public String getDateOfBirth() {
-        return null;
+        System.out.println("Enter date of birth: (YYYYMMDD)");
+        String dateOfBirthInput;
+        do {
+            dateOfBirthInput = input.nextLine();
+        } while (!FormatCheckers.dateOfBirthFormatIsCorrect(dateOfBirthInput));
+        return dateOfBirthInput;
     }
     public double getSalary(){
         String userInput;

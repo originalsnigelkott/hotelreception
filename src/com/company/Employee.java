@@ -1,12 +1,28 @@
 package com.company;
 
 public abstract class Employee extends Person {
+
+    public enum SortEmployeeBy {
+        ID ("EmployeeID"),
+        NAME ("Name"),
+        DATE_OF_BIRTH ("Date of birth"),
+        SALARY ("Weekly salary");
+
+        String menuOutput;
+
+        private SortEmployeeBy(String menuOut) {
+            this.menuOutput = menuOutput;
+        }
+
+    }
+
     private double hourlySalary;
     private double hoursPerWeek;
     private double weeklySalary;
     private int employeeID;
     private static int counter = 0;
 
+    //TODO: add Employee type and sorting mechanism.
     public Employee(String firstName, String lastName, String dateOfBirth, double hourlySalary, double hoursPerWeek) {
         super(firstName, lastName, dateOfBirth);
         this.hourlySalary = hourlySalary;

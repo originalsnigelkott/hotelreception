@@ -31,7 +31,7 @@ public class FormatCheckers {
         }
         return false;
     }
-
+/*
     public static boolean doubleFormatIsValid(String string) {
         if (stringIsDouble(string)) {
             if (doubleHas2IntegersAnd2Decimals(string)) {
@@ -51,6 +51,15 @@ public class FormatCheckers {
             }
         } else {
             View.getInstance().showErrorMessage("Integers has to be less than 100 or more than 1");
+        }
+        return false;
+    }
+*/
+    public static boolean stringIsValid (String string) {
+        if (!string.equals("")) {
+            return true;
+        } else {
+            View.getInstance().showErrorMessage("Invalid input");
         }
         return false;
     }

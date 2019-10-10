@@ -34,15 +34,15 @@ public class HotelReceptionProgram {
                                     employeeTypeMenuItem = view.getEmployeeTypeMenuItem();
                                     switch (employeeTypeMenuItem) {
                                         case CLEANER: {
-                                            //TODO: implement
+                                            hireEmployee((Employee)PersonFactory.createPerson(PersonFactory.PersonType.CLEANER));
                                             break;
                                         }
                                         case MANAGER: {
-                                            //TODO: implement
+                                            hireEmployee((Employee)PersonFactory.createPerson(PersonFactory.PersonType.MANAGER));
                                             break;
                                         }
                                         case RECEPTIONIST: {
-                                            //TODO: implement
+                                            hireEmployee((Employee)PersonFactory.createPerson(PersonFactory.PersonType.RECEPTIONIST));
                                             break;
                                         }
                                         case BACK: {
@@ -60,6 +60,10 @@ public class HotelReceptionProgram {
                                 break;
                             }
                             case SHOW: {
+                                for (Employee employee :
+                                        employees) {
+                                    System.out.println(employee);
+                                }
                                 //TODO: implement
                                 break;
                             }
@@ -89,5 +93,11 @@ public class HotelReceptionProgram {
                 }
             }
         } while (mainMenuChoice != View.MainMenuItem.QUIT);
+    }
+
+    private void hireEmployee(Employee employee) {
+        if (employee != null) {
+            employees.add(employee);
+        }
     }
 }

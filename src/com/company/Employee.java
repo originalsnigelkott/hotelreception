@@ -29,4 +29,17 @@ public abstract class Employee extends Person {
         }
         return Integer.parseInt(employeeID);
     }
+
+    @Override
+    public String toString() {
+        String output = String.format("" +
+                        "EmployeeID: %d\n" +
+                        "%s, %s\n" +
+                        "Date of birth: %s\n" +
+                        "Salary: %.2f\n" +
+                        "Hours/week: %.2f\n" +
+                        "-----------------------"
+                , employeeID, super.getLastName(), super.getFirstName(), super.getDateOfBirth(), weeklySalary, hoursPerWeek);
+        return output;
+    }
 }

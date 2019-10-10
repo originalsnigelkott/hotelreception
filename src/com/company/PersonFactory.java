@@ -8,7 +8,10 @@ public class PersonFactory {
         MANAGER,
     }
 
-    public Person createPerson(PersonType personType, String firstName, String lastName, String dateOfBirth) {
+    public static Person createPerson(PersonType personType) {
+        String firstName = View.getInstance().getName("first");
+        String lastName = View.getInstance().getName("last");
+        String dateOfBirth = View.getInstance().getDateOfBirth();
         switch (personType) {
             case GUEST: {
                 return new Guest(firstName, lastName, dateOfBirth, "");

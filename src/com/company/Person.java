@@ -11,4 +11,14 @@ public abstract class Person {
      this.lastName = lastName;
      this.dateOfBirth = dateOfBirth;
  }
+
+    public String getFirstName() {
+        return firstName;
+    }
+    public String getLastName() {
+     return lastName;
+    }
+    public String getDateOfBirth() {
+     return dateOfBirth;
+    }
 }

@@ -115,12 +115,23 @@ public class View {
         } while (!FormatCheckers.menuChoiceIsValid(employeeTypeMenuChoice, EmployeeTypeMenuItem.values().length));
         return EmployeeTypeMenuItem.values()[Integer.parseInt(employeeTypeMenuChoice) - 1];
     }
+    public String getName(String type) {
+        System.out.printf("Enter %s name:", type);
+        String nameInput;
+        do {
+            nameInput = input.nextLine();
+        } while (!FormatCheckers.stringIsValid(nameInput));
+        return nameInput;
+    }
+    public String getDateOfBirth() {
+        return null;
+    }
     public double getSalary(){
         String userInput;
         System.out.println("Input employees hourly salary: ($$.¢¢ or $$)");
         do {
             userInput = input.nextLine();
-        } while (!FormatCheckers.doubleFormatIsValid(userInput));
+        } while (!FormatCheckers.stringIsDouble(userInput));
         return Double.parseDouble(userInput);
     }
     public double getHoursPerWeek() {
@@ -128,7 +139,7 @@ public class View {
         System.out.println("Input employees work hours/week: (HH or HH.HH)");
         do {
             userInput = input.nextLine();
-        } while (!FormatCheckers.doubleFormatIsValid(userInput));
+        } while (!FormatCheckers.stringIsDouble(userInput));
         return Double.parseDouble(userInput);
     }
 

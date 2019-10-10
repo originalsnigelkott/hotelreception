@@ -115,7 +115,22 @@ public class View {
         } while (!FormatCheckers.menuChoiceIsValid(employeeTypeMenuChoice, EmployeeTypeMenuItem.values().length));
         return EmployeeTypeMenuItem.values()[Integer.parseInt(employeeTypeMenuChoice) - 1];
     }
-
+    public double getSalary(){
+        String userInput;
+        System.out.println("Input employees hourly salary: ($$.¢¢ or $$)");
+        do {
+            userInput = input.nextLine();
+        } while (!FormatCheckers.doubleFormatIsValid(userInput));
+        return Double.parseDouble(userInput);
+    }
+    public double getHoursPerWeek() {
+        String userInput;
+        System.out.println("Input employees work hours/week: (HH or HH.HH)");
+        do {
+            userInput = input.nextLine();
+        } while (!FormatCheckers.doubleFormatIsValid(userInput));
+        return Double.parseDouble(userInput);
+    }
 
     public void showErrorMessage(String errorMessage) {
         String output = String.format("Error: %s. Try again.\n", errorMessage);

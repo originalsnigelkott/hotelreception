@@ -8,19 +8,25 @@ public class PersonFactory {
         MANAGER,
     }
 
-    public Person createPerson(PersonType personType, String firstname, String lastName, String dateOfBirth) {
+    public Person createPerson(PersonType personType, String firstName, String lastName, String dateOfBirth) {
         switch (personType) {
             case GUEST: {
-                return new Guest(firstname, lastName, dateOfBirth, "");
+                return new Guest(firstName, lastName, dateOfBirth, "");
             }
             case CLEANER: {
-                return new Cleaner(firstname, lastName, dateOfBirth, 0, 0);
+                Double hourlySalary = View.getInstance().getSalary();
+                Double hoursPerWeek = View.getInstance().getHoursPerWeek();
+                return new Cleaner(firstName, lastName, dateOfBirth, hourlySalary, hoursPerWeek);
             }
             case RECEPTIONIST: {
-                return new Receptionist(firstname, lastName, dateOfBirth, 0, 0);
+                Double hourlySalary = View.getInstance().getSalary();
+                Double hoursPerWeek = View.getInstance().getHoursPerWeek();
+                return new Receptionist(firstName, lastName, dateOfBirth, hourlySalary, hoursPerWeek);
             }
             case MANAGER: {
-                return new Manager(firstname, lastName, dateOfBirth, 0, 0);
+                Double hourlySalary = View.getInstance().getSalary();
+                Double hoursPerWeek = View.getInstance().getHoursPerWeek();
+                return new Manager(firstName, lastName, dateOfBirth, hourlySalary, hoursPerWeek);
             }
             default: {
                 return null;

@@ -16,6 +16,7 @@ public abstract class Employee extends Person {
 
     }
 
+    private static SortEmployeeBy sortEmployeeBy;
     private double hourlySalary;
     private double hoursPerWeek;
     private double weeklySalary;
@@ -57,5 +58,8 @@ public abstract class Employee extends Person {
                         "-----------------------"
                 , employeeID, super.getLastName(), super.getFirstName(), super.getDateOfBirth(), weeklySalary, hoursPerWeek);
         return output;
+    }
+    public void setSortEmployeeBy(SortEmployeeBy sortEmployeeBy) {
+        this.sortEmployeeBy = sortEmployeeBy;
     }
 }

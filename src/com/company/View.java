@@ -42,7 +42,17 @@ public class View {
     }
 
     public enum ShowEmployeeTypeMenuItem {
-        //TODO: implement
+        CLEANER("Show cleaners"),
+        MANAGER("Show manager"),
+        RECEPTIONIST("Show receptionist"),
+        ALL ("Show all"),
+        BACK ("Back");
+
+        private String menuOutput;
+
+        private ShowEmployeeTypeMenuItem(String menuOutput) {
+            this.menuOutput = menuOutput;
+        }
         }
 
     private static View instance = null;

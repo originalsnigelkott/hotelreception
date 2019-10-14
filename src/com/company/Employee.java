@@ -20,6 +20,7 @@ public abstract class Employee extends Person {
     private double hoursPerWeek;
     private double weeklySalary;
     private int employeeID;
+    private String employedAs; //TODO: when listed need to add role
     private static int counter = 0;
 
     //TODO: add Employee type and sorting mechanism.

@@ -1,5 +1,5 @@
 package com.company;
 
-public interface HasMenuOutput {
+public interface MenuOutput {
     String getMenuOutput();
 }

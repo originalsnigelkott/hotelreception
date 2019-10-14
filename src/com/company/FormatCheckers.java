@@ -75,4 +75,15 @@ public class FormatCheckers {
         }
         return false;
     }
+
+    public static boolean employeeIDInputIsValid(String string) {
+        if (stringIsIntegers(string)) {
+            if (string.length() == 5) {
+                return true;
+            } else {
+                View.getInstance().showErrorMessage("Wrong format");
+            }
+        }
+        return false;
+    }
 }

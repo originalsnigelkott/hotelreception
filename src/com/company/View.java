@@ -3,7 +3,7 @@ package com.company;
 import java.util.Scanner;
 
 public class View {
-    public enum MainMenuItem implements HasMenuOutput{
+    public enum MainMenuItem implements MenuOutput {
         ADMINISTRATOR_SUB_MENU ("Show admin menu"),
         RECEPTION_SUB_MENU ("Show reception menu"),
         HELP ("Help"),
@@ -20,7 +20,7 @@ public class View {
         }
     }
 
-    public enum AdminMenuItem implements HasMenuOutput {
+    public enum AdminMenuItem implements MenuOutput {
         HIRE ("Hire employee"),
         DISMISS("Dismiss employee"),
         SHOW ("Show employees"),
@@ -38,7 +38,7 @@ public class View {
         }
     }
 
-    public enum EmployeeTypeMenuItem implements HasMenuOutput{
+    public enum EmployeeTypeMenuItem implements MenuOutput {
         CLEANER("Cleaner"),
         MANAGER("Manager"),
         RECEPTIONIST("Receptionist"),
@@ -56,7 +56,7 @@ public class View {
         }
     }
 
-    public enum ShowEmployeeTypeMenuItem implements HasMenuOutput {
+    public enum ShowEmployeeTypeMenuItem implements MenuOutput {
         CLEANER("Show cleaners"),
         MANAGER("Show manager"),
         RECEPTIONIST("Show receptionist"),
@@ -89,7 +89,7 @@ public class View {
         return instance;
     }
 
-    public <T extends HasMenuOutput> void showMenu(T[] menuItems) {
+    public <T extends MenuOutput> void showMenu(T[] menuItems) {
         int i = 1;
         for (T menuItem :
                 menuItems) {
@@ -98,7 +98,7 @@ public class View {
         }
     }
 
-    public <T> T getMenuChoice(T[] menuItems){
+    public <T> T inputMenuChoice(T[] menuItems){
         String menuChoice;
         do {
             menuChoice = input.nextLine();
@@ -106,6 +106,7 @@ public class View {
         return menuItems[Integer.parseInt(menuChoice) - 1];
     }
 
+    //TODO: remove redundant menu and input methods
     public void showMainMenu(String hotelName) {
         int i = 1;
         System.out.printf("Welcome to %s.\n", hotelName);
@@ -152,8 +153,8 @@ public class View {
         } while (!FormatCheckers.menuChoiceIsValid(employeeTypeMenuChoice, EmployeeTypeMenuItem.values().length));
         return EmployeeTypeMenuItem.values()[Integer.parseInt(employeeTypeMenuChoice) - 1];
     }
-    
-    public String getName(String type) {
+
+    public String inputName(String type) {
         System.out.printf("Enter %s name:\n", type);
         String nameInput;
         do {
@@ -161,7 +162,7 @@ public class View {
         } while (!FormatCheckers.stringIsValid(nameInput));
         return nameInput;
     }
-    public String getDateOfBirth() {
+    public String inputDateOfBirth() {
         System.out.println("Enter date of birth: (YYYYMMDD)");
         String dateOfBirthInput;
         do {
@@ -169,7 +170,7 @@ public class View {
         } while (!FormatCheckers.dateOfBirthFormatIsCorrect(dateOfBirthInput));
         return dateOfBirthInput;
     }
-    public double getSalary(){
+    public double inputSalary(){
         String userInput;
         System.out.println("Input employees hourly salary: ($$.¢¢ or $$)");
         do {
@@ -177,7 +178,7 @@ public class View {
         } while (!FormatCheckers.stringIsDouble(userInput));
         return Double.parseDouble(userInput);
     }
-    public double getHoursPerWeek() {
+    public double inputHoursPerWeek() {
         String userInput;
         System.out.println("Input employees work hours/week: (HH or HH.HH)");
         do {
@@ -185,7 +186,18 @@ public class View {
         } while (!FormatCheckers.stringIsDouble(userInput));
         return Double.parseDouble(userInput);
     }
+    public int inputEmployeeID() {
+        String userInput;
+        System.out.println("Input employeeID: (1XXXX)");
+        do {
+            userInput = input.nextLine();
+        } while (!FormatCheckers.employeeIDInputIsValid(userInput));
+        return Integer.parseInt(userInput);
+    }
 
+    public void showMessage(String message) {
+        System.out.println(message);
+    }
     public void showErrorMessage(String errorMessage) {
         String output = String.format("Error: %s. Try again.\n", errorMessage);
         System.out.println(output);

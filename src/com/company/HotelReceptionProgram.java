@@ -19,19 +19,19 @@ public class HotelReceptionProgram {
         View.MainMenuItem mainMenuChoice;
         do {
             view.showMenu(View.MainMenuItem.values());
-            mainMenuChoice = view.getMenuChoice(View.MainMenuItem.values());
+            mainMenuChoice = view.inputMenuChoice(View.MainMenuItem.values());
             switch (mainMenuChoice) {
                 case ADMINISTRATOR_SUB_MENU: {
                     View.AdminMenuItem adminMenuChoice;
                     do {
                         view.showMenu(View.AdminMenuItem.values());
-                        adminMenuChoice = view.getMenuChoice(View.AdminMenuItem.values());
+                        adminMenuChoice = view.inputMenuChoice(View.AdminMenuItem.values());
                         switch (adminMenuChoice) {
                             case HIRE: {
                                 View.EmployeeTypeMenuItem employeeTypeMenuItem;
                                 do {
                                     view.showMenu(View.EmployeeTypeMenuItem.values());
-                                    employeeTypeMenuItem = view.getMenuChoice(View.EmployeeTypeMenuItem.values());
+                                    employeeTypeMenuItem = view.inputMenuChoice(View.EmployeeTypeMenuItem.values());
                                     switch (employeeTypeMenuItem) {
                                         case CLEANER: {
                                             hireEmployee((Employee) PersonFactory.createPerson(PersonFactory.PersonType.CLEANER));
@@ -56,7 +56,8 @@ public class HotelReceptionProgram {
                                 break;
                             }
                             case DISMISS: {
-                                //TODO: implement getEmployeeID
+                                int employeeID = view.inputEmployeeID();
+                                dismissEmployee(employeeID);
                                 break;
                             }
                             case SHOW: {
@@ -106,6 +107,7 @@ public class HotelReceptionProgram {
                 employees) {
             if (employeeID == employee.getEmployeeID()) {
                 employees.remove(employee);
+                view.showMessage("Employee dismissed.");
                 return;
             }
         }

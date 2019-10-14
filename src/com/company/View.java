@@ -69,6 +69,14 @@ public class View {
         return instance;
     }
 
+    public <T> void showMenu(T[] menuItems) {
+        int i = 1;
+        for (T menuItem :
+                menuItems) {
+            System.out.printf("%d. %s\n", menuItem);
+        }
+    }
+
     public void showMainMenu(String hotelName) {
         int i = 1;
         System.out.printf("Welcome to %s.\n", hotelName);

@@ -5,8 +5,7 @@ public abstract class Employee extends Person {
     public enum SortEmployeeBy {
         ID ("EmployeeID"),
         NAME ("Name"),
-        DATE_OF_BIRTH ("Date of birth"),
-        SALARY ("Weekly salary");
+        DATE_OF_BIRTH ("Date of birth");
 
         String menuOutput;
 

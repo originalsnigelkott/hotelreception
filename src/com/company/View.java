@@ -3,7 +3,7 @@ package com.company;
 import java.util.Scanner;
 
 public class View {
-    public enum MainMenuItem {
+    public enum MainMenuItem implements HasMenuOutput{
         ADMINISTRATOR_SUB_MENU ("Show admin menu"),
         RECEPTION_SUB_MENU ("Show reception menu"),
         HELP ("Help"),
@@ -13,9 +13,14 @@ public class View {
         private MainMenuItem(String menuOutput){
             this.menuOutput = menuOutput;
         }
+
+        @Override
+        public String getMenuOutput() {
+            return menuOutput;
+        }
     }
 
-    public enum AdminMenuItem {
+    public enum AdminMenuItem implements HasMenuOutput {
         HIRE ("Hire employee"),
         DISMISS("Dismiss employee"),
         SHOW ("Show employees"),
@@ -26,9 +31,14 @@ public class View {
         private AdminMenuItem(String menuOutput) {
             this.menuOutput = menuOutput;
         }
+
+        @Override
+        public String getMenuOutput() {
+            return menuOutput;
+        }
     }
 
-    public enum EmployeeTypeMenuItem {
+    public enum EmployeeTypeMenuItem implements HasMenuOutput{
         CLEANER("Cleaner"),
         MANAGER("Manager"),
         RECEPTIONIST("Receptionist"),
@@ -39,9 +49,14 @@ public class View {
         private EmployeeTypeMenuItem(String menuOutput) {
             this.menuOutput = menuOutput;
         }
+
+        @Override
+        public String getMenuOutput() {
+            return menuOutput;
+        }
     }
 
-    public enum ShowEmployeeTypeMenuItem {
+    public enum ShowEmployeeTypeMenuItem implements HasMenuOutput {
         CLEANER("Show cleaners"),
         MANAGER("Show manager"),
         RECEPTIONIST("Show receptionist"),
@@ -53,7 +68,12 @@ public class View {
         private ShowEmployeeTypeMenuItem(String menuOutput) {
             this.menuOutput = menuOutput;
         }
+
+        @Override
+        public String getMenuOutput() {
+            return menuOutput;
         }
+    }
 
     private static View instance = null;
     private Scanner input = new Scanner(System.in);
@@ -69,12 +89,21 @@ public class View {
         return instance;
     }
 
-    public <T> void showMenu(T[] menuItems) {
+    public <T extends HasMenuOutput> void showMenu(T[] menuItems) {
         int i = 1;
         for (T menuItem :
                 menuItems) {
-            System.out.printf("%d. %s\n", menuItem);
+            System.out.printf("%d. %s\n", i, menuItem.getMenuOutput());
+            i++;
         }
+    }
+
+    public <T> T getMenuChoice(T[] menuItems){
+        String menuChoice;
+        do {
+            menuChoice = input.nextLine();
+        } while (!FormatCheckers.menuChoiceIsValid(menuChoice, menuItems.length));
+        return menuItems[Integer.parseInt(menuChoice) - 1];
     }
 
     public void showMainMenu(String hotelName) {
@@ -123,6 +152,7 @@ public class View {
         } while (!FormatCheckers.menuChoiceIsValid(employeeTypeMenuChoice, EmployeeTypeMenuItem.values().length));
         return EmployeeTypeMenuItem.values()[Integer.parseInt(employeeTypeMenuChoice) - 1];
     }
+    
     public String getName(String type) {
         System.out.printf("Enter %s name:\n", type);
         String nameInput;

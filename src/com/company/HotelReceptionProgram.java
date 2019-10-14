@@ -18,31 +18,31 @@ public class HotelReceptionProgram {
     public void startProgram() {
         View.MainMenuItem mainMenuChoice;
         do {
-            view.showMainMenu("Clarion Hotel");
-            mainMenuChoice = view.getMainMenuChoice();
+            view.showMenu(View.MainMenuItem.values());
+            mainMenuChoice = view.getMenuChoice(View.MainMenuItem.values());
             switch (mainMenuChoice) {
                 case ADMINISTRATOR_SUB_MENU: {
                     View.AdminMenuItem adminMenuChoice;
                     do {
-                        view.showAdminMenu();
-                        adminMenuChoice = view.getAdminMenuItem();
+                        view.showMenu(View.AdminMenuItem.values());
+                        adminMenuChoice = view.getMenuChoice(View.AdminMenuItem.values());
                         switch (adminMenuChoice) {
                             case HIRE: {
                                 View.EmployeeTypeMenuItem employeeTypeMenuItem;
                                 do {
-                                    view.showEmployeeTypeMenu();
-                                    employeeTypeMenuItem = view.getEmployeeTypeMenuItem();
+                                    view.showMenu(View.EmployeeTypeMenuItem.values());
+                                    employeeTypeMenuItem = view.getMenuChoice(View.EmployeeTypeMenuItem.values());
                                     switch (employeeTypeMenuItem) {
                                         case CLEANER: {
-                                            hireEmployee((Employee)PersonFactory.createPerson(PersonFactory.PersonType.CLEANER));
+                                            hireEmployee((Employee) PersonFactory.createPerson(PersonFactory.PersonType.CLEANER));
                                             break;
                                         }
                                         case MANAGER: {
-                                            hireEmployee((Employee)PersonFactory.createPerson(PersonFactory.PersonType.MANAGER));
+                                            hireEmployee((Employee) PersonFactory.createPerson(PersonFactory.PersonType.MANAGER));
                                             break;
                                         }
                                         case RECEPTIONIST: {
-                                            hireEmployee((Employee)PersonFactory.createPerson(PersonFactory.PersonType.RECEPTIONIST));
+                                            hireEmployee((Employee) PersonFactory.createPerson(PersonFactory.PersonType.RECEPTIONIST));
                                             break;
                                         }
                                         case BACK: {
@@ -99,5 +99,16 @@ public class HotelReceptionProgram {
         if (employee != null) {
             employees.add(employee);
         }
+    }
+
+    private void dismissEmployee(int employeeID) {
+        for (Employee employee :
+                employees) {
+            if (employeeID == employee.getEmployeeID()) {
+                employees.remove(employee);
+                return;
+            }
+        }
+        view.showErrorMessage("No employee with that ID");
     }
 }

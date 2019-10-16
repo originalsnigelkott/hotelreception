@@ -13,7 +13,6 @@ public abstract class Employee extends Person implements Comparable<Employee> {
     private double hoursPerWeek;
     private double weeklySalary;
     private int employeeID;
-    private String employedAs; //TODO: when listed need to add role
     private static int counter = 0;
 
     public Employee(String firstName, String lastName, String dateOfBirth, double hourlySalary, double hoursPerWeek) {
@@ -23,7 +22,7 @@ public abstract class Employee extends Person implements Comparable<Employee> {
         weeklySalary = hoursPerWeek * hourlySalary;
         employeeID = generateEmployeeID();
     }
-
+    //TODO: add employeeID per class, example: 11001 manager, 12001 cleaner, 13001 receptionist or R10001, C10001, M10001
     private int generateEmployeeID() {
         counter++;
         String employeeID = null;
@@ -43,12 +42,13 @@ public abstract class Employee extends Person implements Comparable<Employee> {
     public String toString() {
         String output = String.format("" +
                         "EmployeeID: %d\n" +
+                        "Role: %s\n" +
                         "%s, %s\n" +
                         "Date of birth: %s\n" +
                         "Salary: %.2f\n" +
                         "Hours/week: %.2f\n" +
                         "-----------------------"
-                , employeeID, super.getLastName(), super.getFirstName(), super.getDateOfBirth(), weeklySalary, hoursPerWeek);
+                , employeeID, this.getClass().getSimpleName(), super.getLastName(), super.getFirstName(), super.getDateOfBirth(), weeklySalary, hoursPerWeek);
         return output;
     }
     public int getEmployeeID() {

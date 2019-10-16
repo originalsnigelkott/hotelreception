@@ -130,6 +130,9 @@ public class HotelReceptionProgram {
                                                         employees.get(0).setSortEmployeeBy(Employee.SortEmployeeBy.DATE_OF_BIRTH);
                                                         break;
                                                     }
+                                                    default: {
+                                                        view.showErrorMessage("Invalid choice");
+                                                    }
                                                 }
                                                 Collections.sort(employees);
                                             } else {
@@ -139,6 +142,9 @@ public class HotelReceptionProgram {
                                         }
                                         case BACK: {
                                             break;
+                                        }
+                                        default: {
+                                            view.showErrorMessage("Invalid choice");
                                         }
                                     }
                                 } while (showEmployeeTypeMenuChoice != View.ShowEmployeeTypeMenuItem.BACK);
@@ -155,11 +161,30 @@ public class HotelReceptionProgram {
                     break;
                 }
                 case RECEPTION_SUB_MENU: {
-                    System.out.println("Receptionist options coming soon.");
+                    view.showMessage("Receptionist options coming soon.");
+                    View.ReceptionMenuItem receptionMenuItemChoice;
+                    do {
+                        view.showMenu(View.ReceptionMenuItem.values());
+                        receptionMenuItemChoice = view.inputMenuChoice(View.ReceptionMenuItem.values());
+                        switch (receptionMenuItemChoice) {
+                            case ROOMS: {
+                                break;
+                            }
+                            case GUESTS: {
+                                break;
+                            }
+                            case BACK: {
+                                break;
+                            }
+                            default: {
+                                view.showErrorMessage("Invalid choice");
+                            }
+                        }
+                    } while (receptionMenuItemChoice != View.ReceptionMenuItem.BACK);
                     break; //TODO: implement
                 }
                 case HELP: {
-                    System.out.println("Help menu coming soon.");
+                    view.showMessage("Help menu coming soon.");
                     break; //TODO: implement
                 }
                 case QUIT: {

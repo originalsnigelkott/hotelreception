@@ -93,6 +93,23 @@ public class View {
         }
     }
 
+    public enum ReceptionMenuItem implements MenuOutput {
+        ROOMS ("Rooms"),
+        GUESTS ("Guests"),
+        BACK ("Back");
+
+        String menuOutput;
+
+        ReceptionMenuItem (String menuOutput) {
+            this.menuOutput = menuOutput;
+        }
+
+        @Override
+        public String getMenuOutput() {
+            return menuOutput;
+        }
+    }
+
     private static View instance = null;
     private Scanner input = new Scanner(System.in);
 
@@ -150,7 +167,7 @@ public class View {
     }
     public double inputHoursPerWeek() {
         String userInput;
-        System.out.println("Input employees work hours/week: (HH or HH.HH)");
+        System.out.println("Input employees work hours/week: (HH or HH.hh)");
         do {
             userInput = input.nextLine();
         } while (!FormatCheckers.stringIsDouble(userInput));

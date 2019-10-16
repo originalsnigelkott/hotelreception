@@ -1,6 +1,8 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class HotelReceptionProgram {
     public static final int NUMBER_OF_FLOORS = 3;
@@ -13,6 +15,15 @@ public class HotelReceptionProgram {
         for (int i = 0; i < NUMBER_OF_FLOORS; i++) {
             floors.add(new Floor(i + 1));
         }
+        employees.add(new Manager("Hästen", "Boss", "20090412", 44, 60));
+        employees.add(new Receptionist("Saga", "Drake", "19251230", 14.99, 40));
+        employees.add(new Receptionist("Per", "Dahlstedt", "19870918", 10.99, 35));
+        employees.add(new Receptionist("Linnea", "Jonsson", "19850923", 20, 40));
+        employees.add(new Receptionist("Balder", "Sörensen", "20110529", 13, 10));
+        employees.add(new Receptionist("Frank", "Andersson", "20090412", 19.50, 25));
+        employees.add(new Cleaner("Orvar", "Friberg", "19910418", 14, 20));
+        employees.add(new Cleaner("Stina", "Strindberg", "19750123", 14, 40));
+        employees.add(new Cleaner("Henrik", "Persson", "19601107", 14, 35));
     }
 
     public void startProgram() {
@@ -61,11 +72,76 @@ public class HotelReceptionProgram {
                                 break;
                             }
                             case SHOW: {
-                                for (Employee employee :
-                                        employees) {
-                                    System.out.println(employee);
-                                }
-                                //TODO: implement
+                                View.ShowEmployeeTypeMenuItem showEmployeeTypeMenuChoice;
+                                Collections.sort(employees);
+                                do {
+                                    view.showMenu(View.ShowEmployeeTypeMenuItem.values());
+                                    showEmployeeTypeMenuChoice = view.inputMenuChoice(View.ShowEmployeeTypeMenuItem.values());
+                                    switch (showEmployeeTypeMenuChoice) {
+                                        case CLEANER: {
+                                            for (Employee employee :
+                                                    employees) {
+                                                if (employee instanceof Cleaner) {
+                                                    view.showPerson(employee);
+                                                }
+                                            }
+                                            break;
+                                        }
+                                        case MANAGER: {
+                                            for (Employee employee :
+                                                    employees) {
+                                                if (employee instanceof Manager) {
+                                                    view.showPerson(employee);
+                                                }
+                                            }
+                                            break;
+                                        }
+                                        case RECEPTIONIST: {
+                                            for (Employee employee :
+                                                    employees) {
+                                                if (employee instanceof Receptionist) {
+                                                    view.showPerson(employee);
+                                                }
+                                            }
+                                            break;
+                                        }
+                                        case ALL: {
+                                            for (Employee employee :
+                                                    employees) {
+                                                view.showPerson(employee);
+                                            }
+                                            break;
+                                        }
+                                        case SET_SORTING: {
+                                            if (employees.size() != 0) {
+                                                View.SortByMenuItem sortByMenuItemChoice;
+                                                view.showMenu(View.SortByMenuItem.values());
+                                                sortByMenuItemChoice = view.inputMenuChoice(View.SortByMenuItem.values());
+                                                switch (sortByMenuItemChoice) {
+                                                    case ID: {
+                                                        employees.get(0).setSortEmployeeBy(Employee.SortEmployeeBy.ID);
+                                                        break;
+                                                    }
+                                                    case NAME: {
+                                                        employees.get(0).setSortEmployeeBy(Employee.SortEmployeeBy.NAME);
+                                                        break;
+                                                    }
+                                                    case DATE_OF_BIRTH: {
+                                                        employees.get(0).setSortEmployeeBy(Employee.SortEmployeeBy.DATE_OF_BIRTH);
+                                                        break;
+                                                    }
+                                                }
+                                                Collections.sort(employees);
+                                            } else {
+                                                view.showErrorMessage("No employees to sort");
+                                            }
+                                            break;
+                                        }
+                                        case BACK: {
+                                            break;
+                                        }
+                                    }
+                                } while (showEmployeeTypeMenuChoice != View.ShowEmployeeTypeMenuItem.BACK);
                                 break;
                             }
                             case BACK: {

@@ -10,7 +10,7 @@ public class View {
         QUIT ("Quit");
 
         private String menuOutput;
-        private MainMenuItem(String menuOutput){
+        MainMenuItem(String menuOutput){
             this.menuOutput = menuOutput;
         }
 
@@ -28,7 +28,7 @@ public class View {
 
         private String menuOutput;
 
-        private AdminMenuItem(String menuOutput) {
+        AdminMenuItem(String menuOutput) {
             this.menuOutput = menuOutput;
         }
 
@@ -46,7 +46,7 @@ public class View {
 
         private String menuOutput;
 
-        private EmployeeTypeMenuItem(String menuOutput) {
+        EmployeeTypeMenuItem(String menuOutput) {
             this.menuOutput = menuOutput;
         }
 
@@ -61,11 +61,29 @@ public class View {
         MANAGER("Show manager"),
         RECEPTIONIST("Show receptionist"),
         ALL ("Show all"),
+        SET_SORTING( "Set sorting method"),
         BACK ("Back");
 
         private String menuOutput;
 
-        private ShowEmployeeTypeMenuItem(String menuOutput) {
+        ShowEmployeeTypeMenuItem(String menuOutput) {
+            this.menuOutput = menuOutput;
+        }
+
+        @Override
+        public String getMenuOutput() {
+            return menuOutput;
+        }
+    }
+
+    public enum SortByMenuItem implements MenuOutput {
+        NAME ("Sort by name"),
+        DATE_OF_BIRTH ("Sort by date of birth"),
+        ID ("Sort by employeeID");
+
+        private String menuOutput;
+
+        SortByMenuItem(String menuOutput) {
             this.menuOutput = menuOutput;
         }
 
@@ -89,69 +107,21 @@ public class View {
         return instance;
     }
 
-    public <T extends MenuOutput> void showMenu(T[] menuItems) {
+    public <E extends MenuOutput> void showMenu(E[] menuItems) {
         int i = 1;
-        for (T menuItem :
+        for (E menuItem :
                 menuItems) {
             System.out.printf("%d. %s\n", i, menuItem.getMenuOutput());
             i++;
         }
     }
 
-    public <T> T inputMenuChoice(T[] menuItems){
+    public <E> E inputMenuChoice(E[] menuItems){
         String menuChoice;
         do {
             menuChoice = input.nextLine();
         } while (!FormatCheckers.menuChoiceIsValid(menuChoice, menuItems.length));
         return menuItems[Integer.parseInt(menuChoice) - 1];
-    }
-
-    //TODO: remove redundant menu and input methods
-    public void showMainMenu(String hotelName) {
-        int i = 1;
-        System.out.printf("Welcome to %s.\n", hotelName);
-        for (MainMenuItem mainMenuItem :
-                MainMenuItem.values()) {
-            System.out.printf("%d. %s\n", i, mainMenuItem.menuOutput);
-            i++;
-        }
-    }
-    public MainMenuItem getMainMenuChoice() {
-        String mainMenuChoice;
-        do {
-            mainMenuChoice = input.nextLine();
-        } while (!FormatCheckers.menuChoiceIsValid(mainMenuChoice, MainMenuItem.values().length));
-        return MainMenuItem.values()[Integer.parseInt(mainMenuChoice) - 1];
-    }
-    public void showAdminMenu() {
-        int i = 1;
-        for (AdminMenuItem adminMenuItem :
-                AdminMenuItem.values()) {
-            System.out.printf("%d. %s\n", i, adminMenuItem.menuOutput);
-            i++;
-        }
-    }
-    public AdminMenuItem getAdminMenuItem() {
-        String adminMenuChoice;
-        do {
-            adminMenuChoice = input.nextLine();
-        } while (!FormatCheckers.menuChoiceIsValid(adminMenuChoice, AdminMenuItem.values().length));
-        return AdminMenuItem.values()[Integer.parseInt(adminMenuChoice) - 1];
-    }
-    public void showEmployeeTypeMenu() {
-        int i = 1;
-        for (EmployeeTypeMenuItem employeeTypeMenu :
-                EmployeeTypeMenuItem.values()) {
-            System.out.printf("%d. %s\n", i, employeeTypeMenu.menuOutput);
-            i++;
-        }
-    }
-    public EmployeeTypeMenuItem getEmployeeTypeMenuItem() {
-        String employeeTypeMenuChoice;
-        do {
-            employeeTypeMenuChoice = input.nextLine();
-        } while (!FormatCheckers.menuChoiceIsValid(employeeTypeMenuChoice, EmployeeTypeMenuItem.values().length));
-        return EmployeeTypeMenuItem.values()[Integer.parseInt(employeeTypeMenuChoice) - 1];
     }
 
     public String inputName(String type) {
@@ -199,7 +169,10 @@ public class View {
         System.out.println(message);
     }
     public void showErrorMessage(String errorMessage) {
-        String output = String.format("Error: %s. Try again.\n", errorMessage);
+        String output = String.format("Error: %s. Try again.", errorMessage);
         System.out.println(output);
+    }
+    public <E> void showPerson(E person) {
+        System.out.println(person);
     }
 }

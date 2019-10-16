@@ -1,21 +1,14 @@
 package com.company;
 
-public abstract class Employee extends Person {
+public abstract class Employee extends Person implements Comparable<Employee> {
 
     public enum SortEmployeeBy {
-        ID ("EmployeeID"),
-        NAME ("Name"),
-        DATE_OF_BIRTH ("Date of birth");
-
-        String menuOutput;
-
-        private SortEmployeeBy(String menuOut) {
-            this.menuOutput = menuOutput;
-        }
-
+        ID,
+        NAME,
+        DATE_OF_BIRTH,
     }
 
-    private static SortEmployeeBy sortEmployeeBy;
+    private static SortEmployeeBy sortBy = SortEmployeeBy.NAME;
     private double hourlySalary;
     private double hoursPerWeek;
     private double weeklySalary;
@@ -23,7 +16,6 @@ public abstract class Employee extends Person {
     private String employedAs; //TODO: when listed need to add role
     private static int counter = 0;
 
-    //TODO: add Employee type and sorting mechanism.
     public Employee(String firstName, String lastName, String dateOfBirth, double hourlySalary, double hoursPerWeek) {
         super(firstName, lastName, dateOfBirth);
         this.hourlySalary = hourlySalary;
@@ -63,6 +55,21 @@ public abstract class Employee extends Person {
         return employeeID;
     }
     public void setSortEmployeeBy(SortEmployeeBy sortEmployeeBy) {
-        this.sortEmployeeBy = sortEmployeeBy;
+        this.sortBy = sortEmployeeBy;
+    }
+    public SortEmployeeBy getSortEmployeeBy() {
+        return sortBy;
+    }
+    public int compareTo(Employee employee) {
+        switch (employee.getSortEmployeeBy()) {
+            case ID: {
+                return getEmployeeID() - employee.getEmployeeID();
+            }
+            case DATE_OF_BIRTH: {
+                return getDateOfBirth().compareTo(employee.getDateOfBirth());
+            }
+            default:
+                return getLastName().compareTo(employee.getLastName());
+        }
     }
 }

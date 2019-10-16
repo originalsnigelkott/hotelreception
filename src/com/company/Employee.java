@@ -13,7 +13,7 @@ public abstract class Employee extends Person implements Comparable<Employee> {
     private double hoursPerWeek;
     private double weeklySalary;
     private int employeeID;
-    private static int counter = 0;
+    private static int counter; //TODO: fix the counter, worst case: load int from file.
 
     public Employee(String firstName, String lastName, String dateOfBirth, double hourlySalary, double hoursPerWeek) {
         super(firstName, lastName, dateOfBirth);

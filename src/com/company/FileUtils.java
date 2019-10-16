@@ -13,7 +13,7 @@ public class FileUtils {
         try (ObjectOutputStream out = new ObjectOutputStream(Files.newOutputStream(path, options))){
             out.writeObject(object);
         } catch (Exception e) {
-            View.getInstance().showErrorMessage(String.format("Failed to save to %s", filename));
+            View.getInstance().showErrorMessage(String.format("Failed to save to %s.", filename));
         }
     }
     public static Object readObject(String filename) {
@@ -21,7 +21,7 @@ public class FileUtils {
         try (ObjectInputStream in = new ObjectInputStream(Files.newInputStream(path))){
             return in.readObject();
         } catch (Exception e) {
-            View.getInstance().showErrorMessage(String.format("Failed to load from %s", filename));
+            View.getInstance().showErrorMessage(String.format("Failed to load from %s.", filename));
         }
         return null;
     }

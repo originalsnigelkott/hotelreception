@@ -31,7 +31,7 @@ public class FormatCheckers {
         }
         return false;
     }
-
+    //TODO: fix this, maybe a separator issue.
     /*
         public static boolean doubleFormatIsValid(String string) {
             if (stringIsDouble(string)) {
@@ -41,7 +41,7 @@ public class FormatCheckers {
             }
             return false;
         }
-    //TODO: fix this
+
         public static boolean doubleHas2IntegersAnd2Decimals(String string) {
             String[] split = string.split(".");
             if (split[0].length() < 3 && split[0].length() > 0) {

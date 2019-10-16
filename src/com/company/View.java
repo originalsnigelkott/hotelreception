@@ -186,7 +186,7 @@ public class View {
         System.out.println(message);
     }
     public void showErrorMessage(String errorMessage) {
-        String output = String.format("Error: %s. Try again.", errorMessage);
+        String output = String.format("Error: %s", errorMessage);
         System.out.println(output);
     }
     public <E> void showPerson(E person) {

@@ -1,13 +1,15 @@
 package com.company;
 
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 public class HotelReceptionProgram {
     public static final int NUMBER_OF_FLOORS = 3;
     private ArrayList<Floor> floors = new ArrayList<>();
-    private ArrayList<Employee> employees = new ArrayList<>();
+    private ArrayList<Employee> employees;
+    private String employeesSaveFileName = "employees.ser";
+
     View view;
 
     public HotelReceptionProgram() {
@@ -15,6 +17,9 @@ public class HotelReceptionProgram {
         for (int i = 0; i < NUMBER_OF_FLOORS; i++) {
             floors.add(new Floor(i + 1));
         }
+        employees = (ArrayList<Employee>) FileUtils.readObject(employeesSaveFileName);
+        ///*
+        employees = new ArrayList<>();
         employees.add(new Manager("Hästen", "Boss", "20090412", 44, 60));
         employees.add(new Receptionist("Saga", "Drake", "19251230", 14.99, 40));
         employees.add(new Receptionist("Per", "Dahlstedt", "19870918", 10.99, 35));
@@ -24,6 +29,7 @@ public class HotelReceptionProgram {
         employees.add(new Cleaner("Orvar", "Friberg", "19910418", 14, 20));
         employees.add(new Cleaner("Stina", "Strindberg", "19750123", 14, 40));
         employees.add(new Cleaner("Henrik", "Persson", "19601107", 14, 35));
+        //*/
     }
 
     public void startProgram() {
@@ -60,15 +66,17 @@ public class HotelReceptionProgram {
                                             break;
                                         }
                                         default: {
-                                            view.showErrorMessage("Invalid choice");
+                                            view.showErrorMessage("Invalid choice. Try again");
                                         }
                                     }
                                 } while (employeeTypeMenuItem != View.EmployeeTypeMenuItem.BACK);
+                                saveObjectsToFile(employeesSaveFileName, employees);
                                 break;
                             }
                             case DISMISS: {
                                 int employeeID = view.inputEmployeeID();
                                 dismissEmployee(employeeID);
+                                saveObjectsToFile(employeesSaveFileName, employees);
                                 break;
                             }
                             case SHOW: {
@@ -131,12 +139,12 @@ public class HotelReceptionProgram {
                                                         break;
                                                     }
                                                     default: {
-                                                        view.showErrorMessage("Invalid choice");
+                                                        view.showErrorMessage("Invalid choice. Try again.");
                                                     }
                                                 }
                                                 Collections.sort(employees);
                                             } else {
-                                                view.showErrorMessage("No employees to sort");
+                                                view.showErrorMessage("No employees to sort.");
                                             }
                                             break;
                                         }
@@ -144,7 +152,7 @@ public class HotelReceptionProgram {
                                             break;
                                         }
                                         default: {
-                                            view.showErrorMessage("Invalid choice");
+                                            view.showErrorMessage("Invalid choice. Try again.");
                                         }
                                     }
                                 } while (showEmployeeTypeMenuChoice != View.ShowEmployeeTypeMenuItem.BACK);
@@ -154,7 +162,7 @@ public class HotelReceptionProgram {
                                 break;
                             }
                             default: {
-                                view.showErrorMessage("Invalid choice");
+                                view.showErrorMessage("Invalid choice. Try again.");
                             }
                         }
                     } while (adminMenuChoice != View.AdminMenuItem.BACK);
@@ -177,7 +185,7 @@ public class HotelReceptionProgram {
                                 break;
                             }
                             default: {
-                                view.showErrorMessage("Invalid choice");
+                                view.showErrorMessage("Invalid choice. Try again.");
                             }
                         }
                     } while (receptionMenuItemChoice != View.ReceptionMenuItem.BACK);
@@ -188,10 +196,11 @@ public class HotelReceptionProgram {
                     break; //TODO: implement
                 }
                 case QUIT: {
+                    shutDownSequence();
                     break;
                 }
                 default: {
-                    view.showErrorMessage("Invalid choice");
+                    view.showErrorMessage("Invalid choice. Try again.");
                 }
             }
         } while (mainMenuChoice != View.MainMenuItem.QUIT);
@@ -212,6 +221,15 @@ public class HotelReceptionProgram {
                 return;
             }
         }
-        view.showErrorMessage("No employee with that ID");
+        view.showErrorMessage("No employee with that ID.");
+    }
+
+    private void shutDownSequence() {
+        saveObjectsToFile(employeesSaveFileName, employees);
+        view.showMessage("Quiting...");
+    }
+
+    private <E> void saveObjectsToFile(String filename, E object) {
+        FileUtils.writeObject(filename, object, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 }

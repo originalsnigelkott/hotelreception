@@ -17,7 +17,7 @@ public class HotelReceptionProgram {
         for (int i = 0; i < NUMBER_OF_FLOORS; i++) {
             floors.add(new Floor(i + 1));
         }
-        employees = (ArrayList<Employee>) FileUtils.readObject(employeesSaveFileName);
+        //employees = (ArrayList<Employee>) FileUtils.readObject(employeesSaveFileName);
         ///*
         employees = new ArrayList<>();
         employees.add(new Manager("Hästen", "Boss", "20090412", 44, 60));
@@ -75,8 +75,10 @@ public class HotelReceptionProgram {
                             }
                             case DISMISS: {
                                 int employeeID = view.inputEmployeeID();
-                                dismissEmployee(employeeID);
-                                saveObjectsToFile(employeesSaveFileName, employees);
+                                if (view.isConfirmed("Employee will be permanently removed")) {
+                                    dismissEmployee(employeeID);
+                                    saveObjectsToFile(employeesSaveFileName, employees);
+                                }
                                 break;
                             }
                             case SHOW: {
@@ -191,6 +193,9 @@ public class HotelReceptionProgram {
                     } while (receptionMenuItemChoice != View.ReceptionMenuItem.BACK);
                     break; //TODO: implement
                 }
+                case LOAD: {
+                    loadPreviousSession();
+                }
                 case HELP: {
                     view.showMessage("Help menu coming soon.");
                     break; //TODO: implement
@@ -227,9 +232,17 @@ public class HotelReceptionProgram {
     private void shutDownSequence() {
         saveObjectsToFile(employeesSaveFileName, employees);
         view.showMessage("Quiting...");
+        //TODO: add more files when needed
     }
 
     private <E> void saveObjectsToFile(String filename, E object) {
         FileUtils.writeObject(filename, object, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+    }
+
+    private void loadPreviousSession() {
+        if (view.isConfirmed("Your data may be overwritten.")) {
+            employees = (ArrayList<Employee>) FileUtils.readObject(employeesSaveFileName);
+        }
+        //TODO: add more files when needed
     }
 }

@@ -4,13 +4,15 @@ import java.util.Scanner;
 
 public class View {
     public enum MainMenuItem implements MenuOutput {
-        ADMINISTRATOR_SUB_MENU ("Show admin menu"),
-        RECEPTION_SUB_MENU ("Show reception menu"),
-        HELP ("Help"),
-        QUIT ("Quit");
+        ADMINISTRATOR_SUB_MENU("Show admin menu"),
+        RECEPTION_SUB_MENU("Show reception menu"),
+        LOAD ("Load data from previous session"),
+        HELP("Help"),
+        QUIT("Quit");
 
         private String menuOutput;
-        MainMenuItem(String menuOutput){
+
+        MainMenuItem(String menuOutput) {
             this.menuOutput = menuOutput;
         }
 
@@ -21,10 +23,10 @@ public class View {
     }
 
     public enum AdminMenuItem implements MenuOutput {
-        HIRE ("Hire employee"),
+        HIRE("Hire employee"),
         DISMISS("Dismiss employee"),
-        SHOW ("Show employees"),
-        BACK ("Back");
+        SHOW("Show employees"),
+        BACK("Back");
 
         private String menuOutput;
 
@@ -42,7 +44,7 @@ public class View {
         CLEANER("Cleaner"),
         MANAGER("Manager"),
         RECEPTIONIST("Receptionist"),
-        BACK ("Back");
+        BACK("Back");
 
         private String menuOutput;
 
@@ -60,9 +62,9 @@ public class View {
         CLEANER("Show cleaners"),
         MANAGER("Show manager"),
         RECEPTIONIST("Show receptionist"),
-        ALL ("Show all"),
-        SET_SORTING( "Set sorting method"),
-        BACK ("Back");
+        ALL("Show all"),
+        SET_SORTING("Set sorting method"),
+        BACK("Back");
 
         private String menuOutput;
 
@@ -77,9 +79,9 @@ public class View {
     }
 
     public enum SortByMenuItem implements MenuOutput {
-        NAME ("Sort by name"),
-        DATE_OF_BIRTH ("Sort by date of birth"),
-        ID ("Sort by employeeID");
+        NAME("Sort by name"),
+        DATE_OF_BIRTH("Sort by date of birth"),
+        ID("Sort by employeeID");
 
         private String menuOutput;
 
@@ -94,13 +96,13 @@ public class View {
     }
 
     public enum ReceptionMenuItem implements MenuOutput {
-        ROOMS ("Rooms"),
-        GUESTS ("Guests"),
-        BACK ("Back");
+        ROOMS("Rooms"),
+        GUESTS("Guests"),
+        BACK("Back");
 
         String menuOutput;
 
-        ReceptionMenuItem (String menuOutput) {
+        ReceptionMenuItem(String menuOutput) {
             this.menuOutput = menuOutput;
         }
 
@@ -133,31 +135,46 @@ public class View {
         }
     }
 
-    public <E> E inputMenuChoice(E[] menuItems){
-        String menuChoice;
+    public <E> E inputMenuChoice(E[] menuItems) {
+        String userInput;
         do {
-            menuChoice = input.nextLine();
-        } while (!FormatCheckers.menuChoiceIsValid(menuChoice, menuItems.length));
-        return menuItems[Integer.parseInt(menuChoice) - 1];
+            userInput = input.nextLine();
+        } while (!FormatCheckers.menuChoiceIsValid(userInput, menuItems.length));
+        return menuItems[Integer.parseInt(userInput) - 1];
+    }
+
+    public boolean isConfirmed(String warningMessage) {
+        System.out.printf("%s. Do you wish to proceed? (Y/n)\n", warningMessage);
+        String userInput = input.nextLine();
+        if (userInput.equalsIgnoreCase("Y") || userInput.equalsIgnoreCase("YES")) {
+            return true;
+        } else if(userInput.equalsIgnoreCase("N") || userInput.equalsIgnoreCase("NO")) {
+            return false;
+        } else {
+            showErrorMessage("Only yes or no allowed. Try again.");
+            return isConfirmed(warningMessage);
+        }
     }
 
     public String inputName(String type) {
         System.out.printf("Enter %s name:\n", type);
-        String nameInput;
+        String userInput;
         do {
-            nameInput = input.nextLine();
-        } while (!FormatCheckers.stringIsValid(nameInput));
-        return nameInput;
+            userInput = input.nextLine();
+        } while (!FormatCheckers.stringIsValid(userInput));
+        return userInput;
     }
+
     public String inputDateOfBirth() {
         System.out.println("Enter date of birth: (YYYYMMDD)");
-        String dateOfBirthInput;
+        String userInput;
         do {
-            dateOfBirthInput = input.nextLine();
-        } while (!FormatCheckers.dateOfBirthFormatIsCorrect(dateOfBirthInput));
-        return dateOfBirthInput;
+            userInput = input.nextLine();
+        } while (!FormatCheckers.dateOfBirthFormatIsCorrect(userInput));
+        return userInput;
     }
-    public double inputSalary(){
+
+    public double inputSalary() {
         String userInput;
         System.out.println("Input employees hourly salary: ($$.¢¢ or $$)");
         do {
@@ -165,6 +182,7 @@ public class View {
         } while (!FormatCheckers.stringIsDouble(userInput));
         return Double.parseDouble(userInput);
     }
+
     public double inputHoursPerWeek() {
         String userInput;
         System.out.println("Input employees work hours/week: (HH or HH.hh)");
@@ -173,6 +191,7 @@ public class View {
         } while (!FormatCheckers.stringIsDouble(userInput));
         return Double.parseDouble(userInput);
     }
+
     public int inputEmployeeID() {
         String userInput;
         System.out.println("Input employeeID: (1XXXX)");
@@ -185,10 +204,12 @@ public class View {
     public void showMessage(String message) {
         System.out.println(message);
     }
+
     public void showErrorMessage(String errorMessage) {
         String output = String.format("Error: %s", errorMessage);
         System.out.println(output);
     }
+
     public <E> void showPerson(E person) {
         System.out.println(person);
     }

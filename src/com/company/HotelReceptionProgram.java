@@ -85,41 +85,24 @@ public class HotelReceptionProgram {
                                 View.ShowEmployeeTypeMenuItem showEmployeeTypeMenuChoice;
                                 Collections.sort(employees);
                                 do {
+                                    String packageName = "com.company.";
                                     view.showMenu(View.ShowEmployeeTypeMenuItem.values());
                                     showEmployeeTypeMenuChoice = view.inputMenuChoice(View.ShowEmployeeTypeMenuItem.values());
                                     switch (showEmployeeTypeMenuChoice) {
                                         case CLEANER: {
-                                            for (Employee employee :
-                                                    employees) {
-                                                if (employee instanceof Cleaner) {
-                                                    view.showPerson(employee);
-                                                }
-                                            }
+                                            showEmployees(packageName + "Cleaner");
                                             break;
                                         }
                                         case MANAGER: {
-                                            for (Employee employee :
-                                                    employees) {
-                                                if (employee instanceof Manager) {
-                                                    view.showPerson(employee);
-                                                }
-                                            }
+                                            showEmployees(packageName + "Manager");
                                             break;
                                         }
                                         case RECEPTIONIST: {
-                                            for (Employee employee :
-                                                    employees) {
-                                                if (employee instanceof Receptionist) {
-                                                    view.showPerson(employee);
-                                                }
-                                            }
+                                            showEmployees(packageName + "Receptionist");
                                             break;
                                         }
                                         case ALL: {
-                                            for (Employee employee :
-                                                    employees) {
-                                                view.showPerson(employee);
-                                            }
+                                            showEmployees(packageName + "Employee");
                                             break;
                                         }
                                         case SET_SORTING: {
@@ -195,6 +178,7 @@ public class HotelReceptionProgram {
                 }
                 case LOAD: {
                     loadPreviousSession();
+                    break;
                 }
                 case HELP: {
                     view.showMessage("Help menu coming soon.");
@@ -227,6 +211,22 @@ public class HotelReceptionProgram {
             }
         }
         view.showErrorMessage("No employee with that ID.");
+    }
+
+    private void showEmployees(String className) {
+        Class myClass;
+        try {
+            myClass = Class.forName(className);
+        } catch (ClassNotFoundException e) {
+            view.showErrorMessage("Error showing employees.");
+            return;
+        }
+        for (Employee employee :
+                employees) {
+            if (myClass.isInstance(employee)) {
+                view.showPerson(employee);
+            }
+        }
     }
 
     private void shutDownSequence() {

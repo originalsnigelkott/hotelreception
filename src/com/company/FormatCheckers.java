@@ -6,7 +6,7 @@ public class FormatCheckers {
             Integer.parseInt(string);
             return true;
         } catch (Exception e) {
-            View.getInstance().showErrorMessage("Only integers allowed");
+            View.getInstance().showErrorMessage("Only integers allowed.");
         }
         return false;
     }
@@ -16,7 +16,7 @@ public class FormatCheckers {
             Double.parseDouble(string);
             return true;
         } catch (Exception e) {
-            View.getInstance().showErrorMessage("Only double-values allowed");
+            View.getInstance().showErrorMessage("Only double-values allowed.");
         }
         return false;
     }
@@ -26,7 +26,7 @@ public class FormatCheckers {
             if (Integer.parseInt(menuChoice) <= noOfChoices && Integer.parseInt(menuChoice) > 0) {
                 return true;
             } else {
-                View.getInstance().showErrorMessage("No such choice");
+                View.getInstance().showErrorMessage("No such choice.");
             }
         }
         return false;
@@ -60,30 +60,32 @@ public class FormatCheckers {
         if (!string.equals("")) {
             return true;
         } else {
-            View.getInstance().showErrorMessage("Invalid input");
+            View.getInstance().showErrorMessage("Invalid input.");
         }
         return false;
     }
-
+    //TODO: make a formatIsCorrect to replace dateOfBirthFormatIsCorrect and employeeIDInputIsValid
     public static boolean dateOfBirthFormatIsCorrect(String string) {
-        if (string.length() == 8) {
-            if (stringIsIntegers(string)) {
-                return true;
+        if (stringIsIntegers(string)) {
+            if (Integer.parseInt(string) > 0) {
+                if (string.length() == 8) {
+                    return true;
+                }
             }
-        } else {
-            View.getInstance().showErrorMessage("Incorrect format");
         }
+        View.getInstance().showErrorMessage("Wrong format.");
         return false;
     }
 
     public static boolean employeeIDInputIsValid(String string) {
         if (stringIsIntegers(string)) {
-            if (string.length() == 5) {
-                return true;
-            } else {
-                View.getInstance().showErrorMessage("Wrong format");
+            if (Integer.parseInt(string) > 0) {
+                if (string.length() == 5) {
+                    return true;
+                }
             }
         }
+        View.getInstance().showErrorMessage("Wrong format.");
         return false;
     }
 }

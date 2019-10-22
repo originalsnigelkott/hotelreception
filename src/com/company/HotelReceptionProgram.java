@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class HotelReceptionProgram {
-    public static final int NUMBER_OF_FLOORS = 3;
+    private static final int NUMBER_OF_FLOORS = 3;
     private ArrayList<Floor> floors = new ArrayList<>();
     private ArrayList<Employee> employees;
     private String employeesSaveFileName = "employees.ser";
@@ -161,9 +161,11 @@ public class HotelReceptionProgram {
                         receptionMenuItemChoice = view.inputMenuChoice(View.ReceptionMenuItem.values());
                         switch (receptionMenuItemChoice) {
                             case ROOMS: {
+                                //TODO: implement
                                 break;
                             }
                             case GUESTS: {
+                                //TODO: implement
                                 break;
                             }
                             case BACK: {
@@ -174,7 +176,7 @@ public class HotelReceptionProgram {
                             }
                         }
                     } while (receptionMenuItemChoice != View.ReceptionMenuItem.BACK);
-                    break; //TODO: implement
+                    break;
                 }
                 case LOAD: {
                     loadPreviousSession();

@@ -9,7 +9,7 @@ public abstract class Employee extends Person implements Comparable<Employee> {
     }
 
     private static SortEmployeeBy sortBy = SortEmployeeBy.NAME;
-    private double hourlySalary;
+    private double hourlySalary; //TODO: delete this? no real use atm
     private double hoursPerWeek;
     private double weeklySalary;
     private int employeeID;
